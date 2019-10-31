@@ -14,5 +14,5 @@ jobs:
             export PATH_NAME='/tmp/1/artifacts';
             echo ${PATH_NAME}
       - store_artifacts:
-          path: `echo ${PATH_NAME}`
+          path: (echo ${PATH_NAME})
           destination: artifact-file
