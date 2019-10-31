@@ -10,12 +10,13 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run: echo "hello world" # run the `echo` command
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            mkdir -p /tmp/1/artifacts;
-            echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
-            export PATH_NAME='/tmp/1/artifacts';
-            echo <<parameters.artifact_path>>
-      - store_artifacts:
-          path: <<parameters.artifact_path>>
+      - run: echo <<parameters.artifact_path>> # run the `echo` command
+#      - run:
+#          name: Creating Dummy Artifacts
+#          command: |
+#            mkdir -p /tmp/1/artifacts;
+#            echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
+#            export PATH_NAME='/tmp/1/artifacts';
+#            echo <<parameters.artifact_path>>
+#      - store_artifacts:
+#          path: <<parameters.artifact_path>>
