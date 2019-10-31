@@ -1,6 +1,10 @@
 version: 2
 jobs:
   build:
+    parameters:
+      artifact_path:
+        type: string
+        default: "/tmp/1/artifacts"
     docker: # use the docker executor type; machine and macos executors are also supported
       - image: circleci/node # the primary container, where your job's commands are run
     steps:
@@ -12,7 +16,6 @@ jobs:
             mkdir -p /tmp/1/artifacts;
             echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
             export PATH_NAME='/tmp/1/artifacts';
-            echo ${PATH_NAME}
+            echo <<parameters.artifact_path>>
       - store_artifacts:
-          path: (echo ${PATH_NAME})
-          destination: artifact-file
+          path: <<parameters.artifact_path>>
