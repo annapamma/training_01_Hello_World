@@ -11,6 +11,8 @@ jobs:
           command: |
             mkdir -p /tmp/1/artifacts;
             echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
+            export PATH_NAME='/tmp/1/artifacts';
+            echo ${PATH_NAME}
       - store_artifacts:
           path: /tmp/*/artifacts
           destination: artifact-file
