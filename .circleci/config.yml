@@ -2,21 +2,12 @@ version: 2
 jobs:
   build:
     parameters:
-      artifact_path:
+      test:
         type: string
-        default: "/tmp/1/artifacts"
-    docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/node # the primary container, where your job's commands are run
+        default: "goodbye"
+    docker:
+      - image: circleci/node
     steps:
-      - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
-      - run: echo <<parameters.artifact_path>>; # run the `echo` command
-#      - run:
-#          name: Creating Dummy Artifacts
-#          command: |
-#            mkdir -p /tmp/1/artifacts;
-#            echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
-#            export PATH_NAME='/tmp/1/artifacts';
-#            echo <<parameters.artifact_path>>
-#      - store_artifacts:
-#          path: <<parameters.artifact_path>>
+      - checkout
+      - run: echo "hello world"
+      - run: echo <<parameters.test>>
