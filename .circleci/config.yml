@@ -16,6 +16,6 @@ jobs:
             mkdir -p /tmp/1/artifacts;
             echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
             mkdir /tmp/artifacts
-            cp /tmp/**/artifacts/ /tmp/artifacts
+            cp -r /tmp/**/artifacts/ /tmp/artifacts
       - store_artifacts:
           path: /tmp/artifacts
