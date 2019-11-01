@@ -10,7 +10,6 @@ jobs:
     steps:
       - checkout
       - run: echo "hello world"
-      - run: echo << parameters.test >>
       - run:
           name: Creating Dummy Artifacts
           command: |
