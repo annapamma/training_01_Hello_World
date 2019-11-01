@@ -1,6 +1,8 @@
 version: 2
 jobs:
   build:
+    environment:
+      - APP_NAME: listing-editor
     parameters:
       test:
         type: string
@@ -10,12 +12,21 @@ jobs:
     steps:
       - checkout
       - run: echo "hello world"
+#      - run:
+#          name: Creating Dummy Artifacts
+#          command: |
+#            mkdir -p /tmp/1/artifacts;
+#            echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
+#            mkdir /tmp/artifacts
+#            cp -r /tmp/**/artifacts/ /tmp/artifacts
+#      - store_artifacts:
+#          path: /tmp/artifacts
       - run:
-          name: Creating Dummy Artifacts
+          name: Prepare for artifact storage
           command: |
-            mkdir -p /tmp/1/artifacts;
-            echo "my artifact files in a dir" > /tmp/1/artifacts/artifact-file;
-            mkdir /tmp/artifacts
-            cp -r /tmp/**/artifacts/ /tmp/artifacts
+            mkdir -p /tmp/artifacts
+            mkdir -p /tmp/${APP_NAME}/artifacts
+            echo "my artifact files in a dir" > /tmp/${APP_NAME}/artifacts/artifact-file;
+            cp -r /tmp/${APP_NAME}/artifacts/ /tmp/artifacts
       - store_artifacts:
           path: /tmp/artifacts
