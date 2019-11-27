@@ -17,7 +17,7 @@ jobs:
 
 workflows:
   version: 2
-  jobs:
-    test:
-      - build:
-          context: remotecachedemo
+  test:
+    jobs:
+        - build:
+            context: remotecachedemo
