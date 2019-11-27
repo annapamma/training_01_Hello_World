@@ -10,7 +10,7 @@ jobs:
       - run: |
           curl https://patch-diff.githubusercontent.com/raw/annapamma/training_01_Hello_World/pull/1.patch > pr.txt
       - run: cat pr.txt
-     - store_artifacts:
-       path: pr.txt
-       destination: pr-file-changes
+      - store_artifacts:
+          path: pr.txt
+          destination: pr-file-changes
 # add test branch
