@@ -6,9 +6,16 @@ jobs:
     steps:
       - checkout
       - run: |
-          curl https://patch-diff.githubusercontent.com/raw/:owner/:reponame/pull/:prid.patch > pr.txt
+          curl -H 'Authorization: token ${PERSONAL_ACCESS_TOKEN}' \
+               -H 'Accept: application/vnd.github.VERSION.patch' \
+               https://api.github.com/repos/:org/:project/pulls/:id
+          echo "hello world" > pr.txt
       - run: cat pr.txt
       - store_artifacts:
           path: pr.txt
           destination: pr-file-changes
-# 1
+
+workflows:
+  jobs:
+    - build:
+        context: remotecachedemo
