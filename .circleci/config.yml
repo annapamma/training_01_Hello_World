@@ -9,6 +9,7 @@ jobs:
           curl -H 'Authorization: token ${PERSONAL_ACCESS_TOKEN}' \
                -H 'Accept: application/vnd.github.VERSION.patch' \
                https://api.github.com/repos/annapamma/training_01_Hello_World/pulls/2
+          echo "token ${PERSONAL_ACCESS_TOKEN}"
           echo "hello world" > pr.txt
       - run: cat pr.txt
       - store_artifacts:
