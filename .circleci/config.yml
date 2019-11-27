@@ -3,10 +3,10 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk@sha256:9382a070f79220a7474f01969240427b0a1df805ffee02c082cacd1ba4d1d636
-    working_directory: /tmp
     steps:
       - checkout
       - run: echo "hello world"
+      - run: ls
       - run: |
           curl https://patch-diff.githubusercontent.com/raw/annapamma/training_01_Hello_World/pull/1.patch > /tmp/artifacts/pr.txt
       - run: cat /tmp/artifacts/pr.txt
