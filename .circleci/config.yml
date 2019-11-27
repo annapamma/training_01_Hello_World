@@ -16,6 +16,7 @@ jobs:
           destination: pr-file-changes
 
 workflows:
+  version: 2
   jobs:
     - build:
         context: remotecachedemo
