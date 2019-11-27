@@ -2,12 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk@sha256:9382a070f79220a7474f01969240427b0a1df805ffee02c082cacd1ba4d1d636
+      - image: circleci/node
     steps:
       - checkout
       - run: |
-          curl -H 'Authorization: token ${PERSONAL_ACCESS_TOKEN}' \
-               -H 'Accept: application/vnd.github.VERSION.patch' \
+          curl -H "Authorization: token ${PERSONAL_ACCESS_TOKEN}" \
+               -H "Accept: application/vnd.github.VERSION.patch" \
                https://api.github.com/repos/annapamma/training_01_Hello_World/pulls/2
           echo "token ${PERSONAL_ACCESS_TOKEN}"
           echo "hello world" > pr.txt
