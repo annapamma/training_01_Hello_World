@@ -7,10 +7,17 @@ jobs:
       - checkout
       - run: |
           echo $CIRCLE_BUILD_NUM
+  step2:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run: |
+          echo $CIRCLE_WORKFLOW_ID
 
 workflows:
   version: 2
   test:
     jobs:
-        - build:
-            context: remotecachedemo
+        - build
+        - step2
