@@ -6,13 +6,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          curl -H "Authorization: token ${PERSONAL_ACCESS_TOKEN}" \
-               -H "Accept: application/vnd.github.VERSION.patch" \
-               https://api.github.com/repos/annapamma/training_01_Hello_World/pulls/2 > pr.txt
-      - run: cat pr.txt
-      - store_artifacts:
-          path: pr.txt
-          destination: pr-file-changes
+          echo $CIRCLE_WORKFLOW_ID
 
 workflows:
   version: 2
