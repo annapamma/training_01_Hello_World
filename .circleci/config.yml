@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node
+    resource_class: small
     steps:
       - checkout
       - run: |
@@ -10,6 +11,7 @@ jobs:
   step2:
     docker:
       - image: circleci/node
+    resource_class: medium
     steps:
       - checkout
       - run: |
