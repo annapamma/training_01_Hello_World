@@ -25,8 +25,8 @@
 #        - step2
 version: 2.1
 
-orbs:
-win: circleci/windows@1.0.0
+#orbs:
+#  win: circleci/windows@1.0.0
 
 jobs:
   build:
