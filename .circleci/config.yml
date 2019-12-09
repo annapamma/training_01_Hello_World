@@ -1,26 +1,41 @@
-version: 2
+#version: 2
+#jobs:
+#  build:
+#    docker:
+#      - image: circleci/node
+#    resource_class: small
+#    steps:
+#      - checkout
+#      - run: |
+#          echo $CIRCLE_BUILD_NUM
+#  step2:
+#    docker:
+#      - image: circleci/node
+#    resource_class: medium
+#    steps:
+#      - checkout
+#      - run: |
+#          echo $CIRCLE_WORKFLOW_ID
+#
+#workflows:
+#  version: 2
+#  test:
+#    jobs:
+#        - build
+#        - step2
+version: 2.1
+
+orbs:
+win: circleci/windows@1.0.0
+
 jobs:
   build:
-    docker:
-      - image: circleci/node
-    resource_class: small
+    executor:
+      name: win/vs2019:stable
+      shell: bash.exe
     steps:
       - checkout
-      - run: |
-          echo $CIRCLE_BUILD_NUM
-  step2:
-    docker:
-      - image: circleci/node
-    resource_class: medium
-    steps:
-      - checkout
-      - run: |
-          echo $CIRCLE_WORKFLOW_ID
-
-workflows:
-  version: 2
-  test:
-    jobs:
-        - build
-        - step2
-#
+      - run: ls -lah
+      - run:
+          command: .\build.ps1
+          shell: powershell.exe
