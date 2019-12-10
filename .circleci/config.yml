@@ -31,7 +31,7 @@ orbs:
 jobs:
   build:
     executor:
-      name: win/default
+      name: win/vs2019
       shell: bash.exe
     steps:
       - checkout
