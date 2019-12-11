@@ -4,11 +4,18 @@ commands:
   sayhello:
     description: "A very simple command for demonstration purposes"
     parameters:
+      expected-changes:
+        type: string
+        default: True
       to:
         type: string
-        default: "Hello World"
+        default: "no one"
     steps:
       - run: echo << parameters.to >>
+      - run: |
+          if [ ! expected-changes ]; then
+              circleci-agent step halt
+          fi
 
 jobs:
   build:
