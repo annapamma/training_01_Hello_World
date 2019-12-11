@@ -11,8 +11,9 @@ commands:
   check_for_changes:
     steps:
       - run: |
-          cat /tmp/check_for_changes.txt | awk '{print length}'
-          if [[ -s /tmp/check_for_changes.txt ]]
+          CHANGES=`cat /tmp/check_for_changes.txt | awk '{print length}'`
+          echo ${CHANGES}
+          if [[ chages > 0 ]]
           then
             echo "file is empty"
           else
