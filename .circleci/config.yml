@@ -23,6 +23,6 @@ jobs:
       - run: echo "export FILE_B=1" >> '/tmp/load_change_status.sh'
       - run: cat /tmp/load_change_status.sh >> ~/.bash_profile
 #      - run: source /tmp/load_change_status.sh && echo ${FOO}
-      - run: echo ${FOO}
+      - run: echo ${FILE_A}
       - run: cat ~/.bash_profile
 
