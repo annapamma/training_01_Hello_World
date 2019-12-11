@@ -13,7 +13,7 @@ commands:
     steps:
       - run: |
           if [ ! expected-changes ]; then
-              circleci-agent step halt
+              exit 0
           fi
       - run: echo << parameters.to >>
 
