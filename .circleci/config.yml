@@ -18,10 +18,11 @@ jobs:
     steps:
 #      - attach_workspace:
 #          at: /tmp
+      - run: cat ~/.bash_profile
       - run: echo "export FILE_A=0" > '/tmp/load_change_status.sh'
       - run: echo "export FILE_B=1" >> '/tmp/load_change_status.sh'
-      - run: cat /tmp/load_change_status.sh >> $BASH_ENV
+      - run: cat /tmp/load_change_status.sh >> ~/.bash_profile
 #      - run: source /tmp/load_change_status.sh && echo ${FOO}
       - run: echo ${FOO}
-      - run: cat $BASH_ENV
+      - run: cat ~/.bash_profile
 
