@@ -13,11 +13,11 @@ commands:
       - run: |
           CHANGES=`cat /tmp/check_for_changes.txt | awk '{print length}'`
           echo ${CHANGES}
-          if [[ chages > 0 ]]
+          if [[ CHANGES > 0 ]]
           then
-            echo "file is empty"
-          else
             echo "file has contents"
+          else
+            echo "file is empty"
           fi
 
   run_downstream_jobs:
