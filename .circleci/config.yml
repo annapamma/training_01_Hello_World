@@ -1,41 +1,19 @@
-#version: 2
-#jobs:
-#  build:
-#    docker:
-#      - image: circleci/node
-#    resource_class: small
-#    steps:
-#      - checkout
-#      - run: |
-#          echo $CIRCLE_BUILD_NUM
-#  step2:
-#    docker:
-#      - image: circleci/node
-#    resource_class: medium
-#    steps:
-#      - checkout
-#      - run: |
-#          echo $CIRCLE_WORKFLOW_ID
-#
-#workflows:
-#  version: 2
-#  test:
-#    jobs:
-#        - build
-#        - step2
 version: 2.1
 
-orbs:
-  win: circleci/windows@2.2.0
+commands:
+  sayhello:
+    description: "A very simple command for demonstration purposes"
+    parameters:
+      to:
+        type: string
+        default: "Hello World"
+    steps:
+      - run: echo << parameters.to >>
 
 jobs:
-  build:
-    executor:
-      name: win/default
-      shell: bash.exe
+  myjob:
+    docker:
+      - image: "circleci/node:9.6.1"
     steps:
-      - checkout
-      - run: ls -lah
-      - run:
-          command: .\build.ps1
-          shell: powershell.exe
+      - sayhello:
+          to: "Lev"
