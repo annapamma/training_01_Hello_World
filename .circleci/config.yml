@@ -39,11 +39,12 @@ jobs:
     steps:
 #      - attach_workspace:
 #          at: /tmp
-      - run: echo 'export CHANGES=HELLO' > '/tmp/load_change_status.sh'
+      - run: echo 'export CHANGES="HELLO"' > '/tmp/load_change_status.sh'
       - run: source /tmp/load_change_status.sh
       - run:  |
           cat /tmp/load_change_status.sh
           echo ${CHANGES}
+
 #          if [[ ${CHANGES} == 'HELLO' ]]
 #          then
 #            echo 'woo'
