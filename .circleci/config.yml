@@ -7,7 +7,8 @@ jobs:
       - image: "circleci/node:9.6.1"
     description: "Record changes and persist result to workspace"
     steps:
-      - run: echo 'there were changes' > '/tmp/check_for_changes.txt'
+#      - run: echo 'there were changes' > '/tmp/check_for_changes.txt'
+      - run: touch '/tmp/check_for_changes.txt'
       - persist_to_workspace:
           root: /tmp
           paths:
