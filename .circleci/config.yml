@@ -6,16 +6,16 @@ commands:
     parameters:
       expected-changes:
         type: string
-        default: "True"
+        default: "False"
       to:
         type: string
         default: "no one"
     steps:
-      - run: echo << parameters.to >>
       - run: |
           if [ ! expected-changes ]; then
               circleci-agent step halt
           fi
+      - run: echo << parameters.to >>
 
 jobs:
   build:
