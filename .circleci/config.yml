@@ -28,6 +28,6 @@ jobs:
 
 workflows:
   test:
-    steps:
+    jobs:
       - record_changes
       - check_for_changes
