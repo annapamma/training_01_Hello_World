@@ -3,8 +3,8 @@ version: 2.1
 commands:
   record_changes:
     steps:
-#      - run: echo 'there were changes' > '/tmp/check_for_changes.txt'
-      - run: touch '/tmp/check_for_changes.txt'
+      - run: echo 'there were changes' > '/tmp/check_for_changes.txt'
+#      - run: touch '/tmp/check_for_changes.txt'
       - persist_to_workspace:
           root: /tmp
           paths:
@@ -13,7 +13,6 @@ commands:
     steps:
       - run: |
           CHANGES=`cat /tmp/check_for_changes.txt | awk '{print length}'`
-          echo ${CHANGES}
           if [[ ${#CHANGES} -gt 0 ]]
           then
             echo "file has contents"
