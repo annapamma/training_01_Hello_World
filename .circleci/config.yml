@@ -41,6 +41,7 @@ jobs:
           at: /tmp
       - run: source /tmp/load_change_status.sh
       - run: |
+          echo ${CHANGES}
           if [[ ${CHANGES} == 'HELLO' ]]
           then
             echo 'woo'
