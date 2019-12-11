@@ -1,15 +1,20 @@
 version: 2.1
 
-commands:
+jobs:
   record_changes:
+    docker:
+      - image: "circleci/node:9.6.1"
+    name: "Record changes and persist result to workspace"
     steps:
       - run: echo 'there were changes' > '/tmp/check_for_changes.txt'
-#      - run: touch '/tmp/check_for_changes.txt'
       - persist_to_workspace:
           root: /tmp
           paths:
             - check_for_changes.txt
   check_for_changes:
+    docker:
+      - image: "circleci/node:9.6.1"
+    name: "Check for changes"
     steps:
       - run: |
           CHANGES=`cat /tmp/check_for_changes.txt | awk '{print length}'`
@@ -27,10 +32,8 @@ commands:
     steps:
       - run: echo "ran downstream jobs"
 
-jobs:
-  build:
-    docker:
-      - image: "circleci/node:9.6.1"
+workflows:
+  test:
     steps:
       - record_changes
       - check_for_changes
