@@ -11,6 +11,7 @@ commands:
   check_for_changes:
     steps:
       - run: |
+          cat /tmp/check_for_changes.txt
           if [[ -s /tmp/check_for_changes.txt ]]
           then
             echo "file is empty"
