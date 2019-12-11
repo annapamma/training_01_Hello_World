@@ -2,15 +2,13 @@ version: 2.1
 
 commands:
   record_changes:
-    description: "A very simple command for demonstration purposes"
     steps:
-      - run: echo 'there were changes' > 'check_for_changes.txt'
+      - run: echo 'there were changes' > '/tmp/check_for_changes.txt'
       - persist_to_workspace:
           root: /tmp
           paths:
             - check_for_changes.txt
   check_for_changes:
-    description: "A very simple command for demonstration purposes"
     steps:
       - run: cat /tmp/check_for_changes.txt
 
