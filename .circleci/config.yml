@@ -1,27 +1,27 @@
 version: 2.1
 
 commands:
-  sayhello:
-    description: "A very simple command for demonstration purposes"
-    parameters:
-      expected-changes:
-        type: string
-        default: "False"
-      to:
-        type: string
-        default: "no one"
+  record_changes:
     steps:
-      - run: |
-          if [ ! expected-changes ]; then
-              circleci-agent step halt
-          fi
-      - run: echo << parameters.to >>
+      - run: echo 'there were changes' > 'check_for_changes.txt'
+      - persist_to_workspace:
+        root: /tmp
+        paths:
+          - check_for_changes.txt
+  check_for_changes:
+    steps:
+      - run: cat /tmp/check_for_changes.txt
+
+  run_downstream_jobs:
+    # if changes, add to a file
+    # read that file
+    steps:
+      - run: echo "ran downstream jobs"
 
 jobs:
   build:
     docker:
       - image: "circleci/node:9.6.1"
     steps:
-      - sayhello:
-          to: "Lev"
-
+      - record_changes
+      - check_for_changes
