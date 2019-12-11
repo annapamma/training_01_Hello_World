@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: "circleci/node:9.6.1"
     steps:
+      - run: echo "#!/bin/bash"> '/tmp/load_change_status.sh'
       - run: echo "export FOO='BAR'"> '/tmp/load_change_status.sh'
       - run: source /tmp/load_change_status.sh
       - run: echo ${FOO}
