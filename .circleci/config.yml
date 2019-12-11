@@ -16,6 +16,8 @@ jobs:
       - image: "circleci/node:9.6.1"
     description: "Check for changes"
     steps:
+      - attach_workspace:
+          at: /tmp
       - run: |
           CHANGES=`cat /tmp/check_for_changes.txt | awk '{print length}'`
           if [[ ${#CHANGES} -gt 0 ]]
