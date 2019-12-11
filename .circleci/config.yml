@@ -37,23 +37,25 @@ jobs:
       - image: "circleci/node:9.6.1"
     description: "Only run if there are changes"
     steps:
-      - attach_workspace:
-          at: /tmp
+#      - attach_workspace:
+#          at: /tmp
       - run: source /tmp/load_change_status.sh
-      - run: |
+      - run:  |
+          cat /tmp/load_change_status.sh
           echo ${CHANGES}
-          if [[ ${CHANGES} == 'HELLO' ]]
-          then
-            echo 'woo'
-          else
-            echo 'fail'
-          fi
-      - run: echo "downstream job ran"
+#          if [[ ${CHANGES} == 'HELLO' ]]
+#          then
+#            echo 'woo'
+#          else
+#            echo 'fail'
+#          fi
+#      - run: echo "downstream job ran"
 
 workflows:
   test:
     jobs:
-      - record_changes
-      - downstream_job:
-          requires:
-            - record_changes
+      - downstream_job
+#      - record_changes
+#      - downstream_job:
+#          requires:
+#            - record_changes
