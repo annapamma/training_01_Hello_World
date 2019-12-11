@@ -30,4 +30,6 @@ workflows:
   test:
     jobs:
       - record_changes
-      - check_for_changes
+      - check_for_changes:
+          requires:
+            - record_changes
