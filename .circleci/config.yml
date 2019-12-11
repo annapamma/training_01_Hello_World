@@ -14,7 +14,7 @@ commands:
       - run: |
           CHANGES=`cat /tmp/check_for_changes.txt | awk '{print length}'`
           echo ${CHANGES}
-          if [[ CHANGES > 0 ]]
+          if [[ CHANGES -ge > 0 ]]
           then
             echo "file has contents"
           else
