@@ -6,7 +6,7 @@ commands:
     parameters:
       expected-changes:
         type: string
-        default: True
+        default: "True"
       to:
         type: string
         default: "no one"
