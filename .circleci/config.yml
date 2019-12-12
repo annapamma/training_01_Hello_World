@@ -1,28 +1,50 @@
 version: 2.1
 
 jobs:
+
   record_changes:
     docker:
       - image: "circleci/node:9.6.1"
     description: "Record changes and persist result to workspace"
     steps:
-      - run: echo "export FILE_A=0" > '/tmp/load_change_status.sh'
-      - run: echo "export FILE_B=1" >> '/tmp/load_change_status.sh'
+      - run: touch '/tmp/check_for_changes.txt'
       - persist_to_workspace:
           root: /tmp
           paths:
-            - load_change_status.sh
-  build:
+            - check_for_changes.txt
+
+  check_for_changes:
     docker:
       - image: "circleci/node:9.6.1"
+    description: "Check for changes"
     steps:
-#      - attach_workspace:
-#          at: /tmp
-      - run: touch ~/.bash_profile
-      - run: echo "export FILE_A=0" > '/tmp/load_change_status.sh'
-      - run: echo "export FILE_B=1" >> '/tmp/load_change_status.sh'
-      - run: cat /tmp/load_change_status.sh >> ~/.bash_profile
-#      - run: source /tmp/load_change_status.sh && echo ${FOO}
-      - run: echo ${FILE_A}
-      - run: cat ~/.bash_profile
+      - attach_workspace:
+          at: /tmp
+      - run: |
+          CHANGES=`cat /tmp/check_for_changes.txt | awk '{print length}'`
+          if [[ ${#CHANGES} -gt 0 ]]
+          then
+            echo "There were changes"
+            exit 0
+          else
+            echo "There were no changes"
+            exit 1
+          fi
 
+  downstream_job:
+    docker:
+      - image: "circleci/node:9.6.1"
+    description: "Only run if there are changes"
+    steps:
+      - run: echo "downstream job ran"
+
+workflows:
+  test:
+    jobs:
+      - record_changes
+      - check_for_changes:
+          requires:
+            - record_changes
+      - downstream_job:
+          requires:
+            - check_for_changes
