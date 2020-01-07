@@ -1,4 +1,4 @@
-version: 2.0
+version: 2.1
 
 jobs:
   build:
@@ -11,15 +11,21 @@ jobs:
       - image: "circleci/node:9.6.1"
     steps:
       - run: echo 'required check'
-  test_from_api:
-    docker:
-      - image: "circleci/node:9.6.1"
-    steps:
-      - run: echo 'triggered from api'
+#  e2e_tests_for_cti:
+#    docker:
+#      - image: "circleci/node:9.6.1"
+#    steps:
+#      - run: echo 'triggered from api'
 
 workflows:
-  version: 2
   test:
     jobs:
       - build
-      - required_check
+#      - required_check
+#  test-from-api-fail:
+#    jobs:
+#      - fail_on_purpose
+   e2e_tests_for_cti:
+     when: << pipeline.parameters.is_cti_test >>
+     jobs:
+       - e2e_tests_for_cti
