@@ -7,8 +7,14 @@ jobs:
     steps:
       - run: echo 'hello world'
 # MAKE A PR
+  test_from_api:
+    docker:
+      - image: "circleci/node:9.6.1"
+    steps:
+      - run: echo 'triggered from api'
 
 workflows:
   test:
     jobs:
       - build
+
