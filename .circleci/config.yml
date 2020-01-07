@@ -6,7 +6,11 @@ jobs:
       - image: "circleci/node:9.6.1"
     steps:
       - run: echo 'hello world'
-## MAKE A PR!!!!!
+  required_check:
+    docker:
+      - image: "circleci/node:9.6.1"
+    steps:
+      - run: echo 'required check'
   test_from_api:
     docker:
       - image: "circleci/node:9.6.1"
@@ -18,3 +22,4 @@ workflows:
   test:
     jobs:
       - build
+      - required_check
