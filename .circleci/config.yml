@@ -1,5 +1,11 @@
 version: 2.1
 
+parameters:
+  is_cti_test:
+    type: boolean
+    default: true
+
+
 jobs:
   build:
     docker:
@@ -28,4 +34,5 @@ workflows:
    e2e_tests_for_cti:
      when: << pipeline.parameters.is_cti_test >>
      jobs:
-       - e2e_tests_for_cti
+#       - e2e_tests_for_cti
+       - required_check
