@@ -6,11 +6,6 @@ parameters:
     type: boolean
     default: false
 
-parameters:
- is_cti_test:
-   type: boolean
-   default: false
-
 jobs:
  build:
    docker:
