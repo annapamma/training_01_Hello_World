@@ -17,6 +17,7 @@ jobs:
      - image: circleci/node:9.6.1
    steps:
      - run: echo 'triggered from api'
+     - run: exit 1
 
 workflows:
  test:
