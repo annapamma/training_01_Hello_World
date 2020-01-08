@@ -1,9 +1,10 @@
 version: 2.1
+# MAKE A PR
 
 parameters:
- is_cti_test:
-   type: boolean
-   default: false
+  is_cti_test:
+    type: boolean
+    default: false
 
 jobs:
  build:
@@ -16,6 +17,7 @@ jobs:
      - image: circleci/node:9.6.1
    steps:
      - run: echo 'triggered from api'
+     - run: exit 1
 
 workflows:
  test:
