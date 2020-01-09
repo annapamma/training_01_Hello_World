@@ -12,6 +12,7 @@ jobs:
  build:
    docker:
      - image: circleci/node:9.6.1
+   resource_class: medium
    steps:
      - run: echo 'hello world'
      - run: echo ${CIRCLE_BRANCH}
