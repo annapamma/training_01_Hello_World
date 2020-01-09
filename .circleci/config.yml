@@ -21,7 +21,7 @@ jobs:
    resource_class: large
    steps:
      - run: echo 'hello world'
-  large:
+  xlarge:
    docker:
      - image: circleci/node:9.6.1
    resource_class: xlarge
@@ -36,7 +36,9 @@ jobs:
 workflows:
  test:
    jobs:
-     - build
+     - medium
+     - large
+     - xlarge
 # e2e_tests_for_cti:
 #   when: << pipeline.parameters.is_cti_test >>
 #   jobs:
