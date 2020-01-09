@@ -1,9 +1,12 @@
 version: 2.1
 
-parameters:
- is_cti_test:
-   type: boolean
-   default: false
+#parameters:
+# is_cti_test:
+#   type: boolean
+#   default: false
+# is_required:
+#   type: boolean
+#   default: true
 
 jobs:
  build:
@@ -11,17 +14,18 @@ jobs:
      - image: circleci/node:9.6.1
    steps:
      - run: echo 'hello world'
- e2e_tests_for_cti:
-   docker:
-     - image: circleci/node:9.6.1
-   steps:
-     - run: echo 'triggered from api'
+     - run: echo ${CIRCLE_BRANCH}
+# e2e_tests_for_cti:
+#   docker:
+#     - image: circleci/node:9.6.1
+#   steps:
+#     - run: echo 'triggered from api'
 
 workflows:
  test:
    jobs:
      - build
- e2e_tests_for_cti:
-   when: << pipeline.parameters.is_cti_test >>
-   jobs:
-      - e2e_tests_for_cti
+# e2e_tests_for_cti:
+#   when: << pipeline.parameters.is_cti_test >>
+#   jobs:
+#      - e2e_tests_for_cti
