@@ -9,24 +9,24 @@ version: 2.1
 #   default: true
 
 jobs:
- medium:
-   docker:
-     - image: circleci/node:9.6.1
-   resource_class: medium
-   steps:
-     - run: echo 'hello world'
- large:
-   docker:
-     - image: circleci/node:9.6.1
-   resource_class: large
-   steps:
-     - run: echo 'hello world'
+  medium:
+    docker:
+      - image: circleci/node:9.6.1
+    resource_class: medium
+    steps:
+      - run: echo 'hello world'
+  large:
+    docker:
+      - image: circleci/node:9.6.1
+    resource_class: large
+    steps:
+      - run: echo 'hello world'
   xlarge:
-   docker:
-     - image: circleci/node:9.6.1
-   resource_class: xlarge
-   steps:
-     - run: echo 'hello world'
+    docker:
+      - image: circleci/node:9.6.1
+    resource_class: xlarge
+    steps:
+      - run: echo 'hello world'
 # e2e_tests_for_cti:
 #   docker:
 #     - image: circleci/node:9.6.1
