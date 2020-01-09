@@ -14,19 +14,19 @@ jobs:
       image: ubuntu-1604:201903-01
     resource_class: medium
     steps:
-      - run: echo 'hello world'
+      - run: cat /proc/cpuinfo | grep 'model name' | uniq
   large:
     machine:
       image: ubuntu-1604:201903-01
     resource_class: large
     steps:
-      - run: echo 'hello world'
+      - run: cat /proc/cpuinfo | grep 'model name' | uniq
   xlarge:
     machine:
       image: ubuntu-1604:201903-01
     resource_class: xlarge
     steps:
-      - run: echo 'hello world'
+      - run: cat /proc/cpuinfo | grep 'model name' | uniq
 # e2e_tests_for_cti:
 #   docker:
 #     - image: circleci/node:9.6.1
