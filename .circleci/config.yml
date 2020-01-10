@@ -1,46 +1,13 @@
 version: 2.1
 
-#parameters:
-# is_cti_test:
-#   type: boolean
-#   default: false
-# is_required:
-#   type: boolean
-#   default: true
-
 jobs:
-  medium:
-    machine:
-      image: ubuntu-1604:201903-01
-    resource_class: medium
+  hello-world:
+    docker:
+      - image: circleci/node:9.6.1
     steps:
-      - run: cat /proc/cpuinfo | grep 'model name' | uniq
-  large:
-    machine:
-      image: ubuntu-1604:201903-01
-    resource_class: large
-    steps:
-      - run: cat /proc/cpuinfo | grep 'model name' | uniq
-  xlarge:
-    machine:
-      image: ubuntu-1604:201903-01
-    resource_class: xlarge
-    steps:
-      - run: cat /proc/cpuinfo | grep 'model name' | uniq
-# e2e_tests_for_cti:
-#   docker:
-#     - image: circleci/node:9.6.1
-#   steps:
-#     - run: echo 'triggered from api'
+      - run: echo 'hello world'
 
 workflows:
  test:
    jobs:
-#     - machine
-     - medium
-     - large
-     - xlarge
-# e2e_tests_for_cti:
-#   when: << pipeline.parameters.is_cti_test >>
-#   jobs:
-#      - e2e_tests_for_cti
+     - hello-world
