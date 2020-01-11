@@ -6,14 +6,14 @@ orbs:
     orbs:
       codecov: circleci/codecov-clojure@0.0.4
     executors:
-      specialthingsexecutor:
+      linux:
         working_directory: ~/SalesforceMobileSDK-Android
         docker:
           - image: circleci/ruby:1.4.2
 #        environment:
 #          - TERM: "dumb"
 #          - GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
-    commands:
+    jobs:
       run-tests:
         executor: linux
         parameters:
@@ -30,12 +30,12 @@ orbs:
           api_level:
             type: integer
             default: 27
-        environment:
-          CURRENT_LIB: << parameters.lib >>
+#        environment:
+#          CURRENT_LIB: << parameters.lib >>
         steps:
           - run: echo "running these steps"
-    jobs:
-      - run-tests
+#    jobs:
+#      - run-tests
 #      - run-tests:
 #          name: "SalesforceAnalytics API 23"
 #          api_level: 23
