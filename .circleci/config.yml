@@ -4,7 +4,7 @@ description: # The purpose of this orb
 orbs:
   my-orb:
     executors:
-      specialthingsexecutor:
+      linux:
         working_directory: ~/SalesforceMobileSDK-Android
         docker:
           - image: circleci/android:api-29-node
