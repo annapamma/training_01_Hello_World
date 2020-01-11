@@ -1,17 +1,18 @@
 version: 2.1
 description: # The purpose of this orb
 
-executors:
-  linux:
-    working_directory: ~/SalesforceMobileSDK-Android
-    docker:
-      - image: circleci/android:api-29-node
-    environment:
-      - TERM: "dumb"
-      - GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
-
 orbs:
   my-orb:
+    orbs:
+      codecov: circleci/codecov-clojure@0.0.4
+    executors:
+      specialthingsexecutor:
+        working_directory: ~/SalesforceMobileSDK-Android
+        docker:
+          - image: circleci/ruby:1.4.2
+#        environment:
+#          - TERM: "dumb"
+#          - GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
     commands:
       run-tests:
         executor: linux
