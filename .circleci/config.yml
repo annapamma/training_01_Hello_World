@@ -26,5 +26,8 @@ orbs:
 
 workflows:
   main:
+    filters:
+      tags:
+        only: /^v.*/
     jobs:
       - my-orb/myjob
