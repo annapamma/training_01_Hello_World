@@ -9,7 +9,7 @@ orbs:
       linux:
         working_directory: ~/SalesforceMobileSDK-Android
         docker:
-          - image: circleci/ruby:1.4.2
+          - image: circleci/node:9.6.1
 #        environment:
 #          - TERM: "dumb"
 #          - GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
