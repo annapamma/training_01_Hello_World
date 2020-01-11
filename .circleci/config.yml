@@ -3,12 +3,16 @@ description: # The purpose of this orb
 
 orbs:
   my-orb:
-#    orbs:
-#      codecov: circleci/codecov-clojure@0.0.4
     executors:
       specialthingsexecutor:
+        working_directory: ~/SalesforceMobileSDK-Android
         docker:
-          - image: circleci/node:9.6.1
+          - image: circleci/android:api-29-node
+        environment:
+          - TERM: "dumb"
+          - GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+#        docker:
+#          - image: circleci/node:9.6.1
     commands:
       dospecialthings:
         steps:
@@ -18,8 +22,7 @@ orbs:
         executor: specialthingsexecutor
         steps:
           - dospecialthings
-#          - codecov/upload:
-#              path: ~/tmp/results.xml
+
 
 workflows:
   main:
