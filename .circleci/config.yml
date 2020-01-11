@@ -1,13 +1,20 @@
 version: 2.1
+description: # The purpose of this orb
 
-jobs:
-  hello-world:
-    docker:
-      - image: circleci/node:9.6.1
-    steps:
-      - run: echo 'hello world'
+orbs:
+  poop_example:
+    commands:
+      say-hello:
+        description: Greet the user politely
+        parameters:
+          username:
+            type: string
+            description: A name of the user to greet
+        steps:
+          - run: "echo Hello << parameters.username >>"
 
 workflows:
- test:
-   jobs:
-     - hello-world
+  build-test-deploy:
+    jobs:
+      - poop_example/say-hello:
+          name: test-say-hello # best practice is to name each orb job
