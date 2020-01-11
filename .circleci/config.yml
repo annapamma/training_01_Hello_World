@@ -4,8 +4,10 @@ description: # The purpose of this orb
 
 orbs:
   poop_example:
-    commands:
+    jobs:
       say-hello:
+#    commands:
+#      say-hello:
         description: Greet the user politely
         parameters:
           username:
