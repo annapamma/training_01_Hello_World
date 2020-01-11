@@ -16,6 +16,7 @@ orbs:
     commands:
       dospecialthings:
         steps:
+          - run: circleci step halt
           - run: echo "We will now do special things"
     jobs:
       myjob:
@@ -26,8 +27,5 @@ orbs:
 
 workflows:
   main:
-    filters:
-      tags:
-        only: /^v.*/
     jobs:
       - my-orb/myjob
