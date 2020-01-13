@@ -10,11 +10,19 @@ orbs:
       linux:
         docker:
           - image: circleci/android:api-29-node
+    commands:
+      run-test:
+        parameters:
+          api_level:
+            type: integer
+            default: 27
+        steps:
+          - run: echo << parameters.api_level >>
     jobs:
       run-tests:
         executor: linux
         steps:
-          run: echo << parameters.name >>
+          - run-test
 
 workflows:
   main:
