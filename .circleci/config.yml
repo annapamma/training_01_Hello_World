@@ -39,7 +39,6 @@ aliases:
       sudo npm i npm@latest -g
       sudo npm install -g shelljs@0.8.3
       sudo npm install -g cordova@8.1.2
-# can this be installed in a convenience image? yes, the 'linux' executor is actually a docker executor
       ./install.sh
       gem install bundler
       gem install danger
