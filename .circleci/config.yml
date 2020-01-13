@@ -1,32 +1,34 @@
 version: 2.1
 
 orbs:
-  executors:
-    linux:
-      docker:
-        - image: circleci/android:api-29-node
-  commands:
-    run-test:
-      parameters:
-        api_level:
-          type: integer
-          default: 27
-      steps:
-        - run: echo << parameters.api_level >>
-#    run-all-tests-with-custom-api-level:
-#      parameters:
-#        api_level:
-#          type: integer
-#          default: 27
-#      steps:
-#        - run-test:
-#            api_level: << parameters.api_level >>
-  jobs:
-    - run-test:
-        name: "SalesforceAnalytics API 26"
-        api_level: 0
+  myorb:
+    executors:
+      linux:
+        docker:
+          - image: circleci/android:api-29-node
+    commands:
+      run-test:
+        parameters:
+          api_level:
+            type: integer
+            default: 27
+        steps:
+          - run: echo << parameters.api_level >>
+  #    run-all-tests-with-custom-api-level:
+  #      parameters:
+  #        api_level:
+  #          type: integer
+  #          default: 27
+  #      steps:
+  #        - run-test:
+  #            api_level: << parameters.api_level >>
+    jobs:
+      run-tests:
+        executor: linux
+        steps:
+          - run-test
 
 workflows:
   main:
     jobs:
-      - myorb/run-test
+      - myorb/run-tests
