@@ -11,6 +11,7 @@ commands:
       api_level:
         type: integer
         default: 27
+    name: 'hi'
     steps:
       - run: echo << parameters.api_level >>
   run-all-tests-with-custom-api-level:
@@ -20,7 +21,7 @@ commands:
         default: 27
     steps:
       - run-test:
-          name: "SalesforceAnalytics API << parameters.api_level >>"
+#          name: "SalesforceAnalytics API << parameters.api_level >>"
           api_level: << parameters.api_level >>
 
 jobs:
