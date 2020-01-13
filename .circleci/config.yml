@@ -32,4 +32,4 @@ jobs:
 workflows:
   test:
     jobs:
-      - run-tests
+      - run-tests-26
