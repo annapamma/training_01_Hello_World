@@ -5,25 +5,20 @@ executors:
     docker:
       - image: circleci/android:api-29-node
 
-jobs:
-  run-tests:
-    executor: linux
+commands:
+  run-test:
     parameters:
-      lib:
-        type: enum
-        enum: ["SalesforceAnalytics", "SalesforceSDK", "SmartStore", "MobileSync", "SalesforceHybrid", "RestExplorer", "SalesforceReact"]
-        default: "SalesforceAnalytics"
-      test_apk:
-        type: string
-        default: 'test_apk'
-      pr:
-        type: boolean
-        default: false
       api_level:
         type: integer
         default: 27
     steps:
       - run: echo << parameters.api_level >>
+jobs:
+  run-tests:
+    executor: linux
+    steps:
+      - run-test:
+          api_level: 0
 
 workflows:
   test:
