@@ -20,7 +20,7 @@ commands:
         default: 27
     steps:
       - run-test:
-          api_level: << parameters.api_level >>
+          api_level: << parameters.run-test.api_level >>
 
 jobs:
   run-tests-26:
