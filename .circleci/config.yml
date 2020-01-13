@@ -6,6 +6,7 @@ executors:
       - image: circleci/android:api-29-node
 
 jobs:
+  run-tests:
     executor: linux
     steps:
       - run: echo 'hello world'
@@ -14,4 +15,3 @@ workflows:
   test:
     jobs:
       - build
-
