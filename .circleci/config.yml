@@ -65,10 +65,6 @@ aliases:
 
 orbs:
   myorb:
-    parameters:
-      name:
-        type: string
-        default: 'world'
     executors:
       linux:
         docker:
@@ -77,8 +73,7 @@ orbs:
       run-tests:
         executor: linux
         steps:
-          run: echo << parameters.name >>
-          # Can I reference orb-level parameters from a job?
+          - run: echo 'hello world'
 
 workflows:
   main:
