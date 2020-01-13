@@ -5,19 +5,20 @@ executors:
     docker:
       - image: circleci/android:api-29-node
 
+parameters:
+  api_level:
+    type: integer
+    default: 27
+
 commands:
   run-test:
-    parameters:
-      api_level:
-        type: integer
-        default: 27
     steps:
       - run: echo << parameters.api_level >>
   run-all-tests-with-custom-api-level:
-    parameters:
-      api_level:
-        type: integer
-        default: 27
+#    parameters:
+#      api_level:
+#        type: integer
+#        default: 27
     steps:
       - run-test:
           api_level: << parameters.api_level >>
