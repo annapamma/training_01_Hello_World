@@ -23,11 +23,11 @@ commands:
           api_level: << parameters.api_level >>
 
 jobs:
-  run-tests:
+  run-tests-26:
     executor: linux
     steps:
-      - run-test:
-          api_level: 0
+      - run-all-tests-with-custom-api-level:
+          api_level: 26
 
 workflows:
   test:
