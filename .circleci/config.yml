@@ -1,14 +1,16 @@
 version: 2.1
 
+# these can be made into smaller building blocks for the rest of the code
+
 commands:
-  run-node:
+  setup:
     steps:
       - add_ssh_keys:
           fingerprints:
           - 0d:94:44:8a:82:3d:01:b0:58:fb:97:3a:a4:cd:f4:b2
       - checkout
       - restore_cache:
-            key: dependency-cache-{{ checksum "package.json" }}
+            key: dependency-cache-
             # add pattern matching, so they don't completely miss the cache
             # eg. key: dependency-cache-
       - run:
@@ -17,6 +19,8 @@ commands:
       - run:
           name: Building
           command: yarn build
+  run-node:
+    steps:
       - run:
           name: Testing
           command: yarn test
