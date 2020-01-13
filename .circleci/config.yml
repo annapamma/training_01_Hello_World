@@ -1,8 +1,16 @@
 version: 2.1
 
+commands:
+  run-node:
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+          - 0d:94:44:8a:82:3d:01:b0:58:fb:97:3a:a4:cd:f4:b2
+      - checkout
+
 jobs:
   build:
     docker:
       - image: "circleci/node:9.6.1"
     steps:
-      - run: echo "hello world"
+      - run-node
