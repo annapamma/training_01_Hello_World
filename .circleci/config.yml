@@ -7,12 +7,20 @@ executors:
 
 commands:
   run-test:
+#    parameters:
+#      api_level:
+#        type: integer
+#        default: 27
+    steps:
+      - run: echo << parameters.api_level >>
+  run-all-tests-with-custom-api-level:
     parameters:
       api_level:
         type: integer
         default: 27
     steps:
-      - run: echo << parameters.api_level >>
+      - run-test
+
 jobs:
   run-tests:
     executor: linux
