@@ -1,77 +1,13 @@
 version: 2.1
-description: # The purpose of this orb
 
-orbs:
-  my-orb:
-    orbs:
-      codecov: circleci/codecov-clojure@0.0.4
-    executors:
-      linux:
-        working_directory: ~/SalesforceMobileSDK-Android
-        docker:
-          - image: circleci/node:9.6.1
-#        environment:
-#          - TERM: "dumb"
-#          - GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
-    jobs:
-      run-tests:
-        executor: linux
-        parameters:
-          lib:
-            type: enum
-            enum: ["SalesforceAnalytics", "SalesforceSDK", "SmartStore", "MobileSync", "SalesforceHybrid", "RestExplorer", "SalesforceReact"]
-            default: "SalesforceAnalytics"
-#          test_apk:
-#            type: string
-#            default: *analytics-apk-path
-          pr:
-            type: boolean
-            default: false
-          api_level:
-            type: integer
-            default: 27
-#        environment:
-#          CURRENT_LIB: << parameters.lib >>
-        steps:
-          - run: echo "running these steps"
-#    jobs:
-#      - run-tests
-#      - run-tests:
-#          name: "SalesforceAnalytics API 23"
-#          api_level: 23
-#      - run-tests:
-#          name: "SalesforceSDK API 23"
-#          lib: "SalesforceSDK"
-#          test_apk: *coresdk-apk-path
-#          api_level: 23
-#      - run-tests:
-#          name: "SmartStore API 23"
-#          lib: "SmartStore"
-#          test_apk: *smartStore-apk-path
-#          api_level: 23
-#      - run-tests:
-#          name: "MobileSync API 23"
-#          lib: "MobileSync"
-#          test_apk: *mobileSync-apk-path
-#          api_level: 23
-#      - run-tests:
-#          name: "SalesforceHybrid API 23"
-#          lib: "SalesforceHybrid"
-#          test_apk: *salesforceHybrid-apk-path
-#          api_level: 23
-#      - run-tests:
-#          name: "RestExplorer API 23"
-#          lib: "RestExplorer"
-#          test_apk: *restExplorer-apk-path
-#          api_level: 23
-#      - run-tests:
-#          name: "SalesforceReact API 23"
-#          lib: "SalesforceReact"
-#          test_apk: *salesforceReact-apk-path
-#          api_level: 23
-
+jobs:
+  build:
+    docker:
+      - image: "circleci/node:9.6.1"
+    steps:
+      - run: echo 'hello world'
 
 workflows:
-  main:
+  test:
     jobs:
-      - my-orb/run-tests
+      - build
