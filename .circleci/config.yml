@@ -1,9 +1,12 @@
 version: 2.1
 
-jobs:
-  build:
+executors:
+  linux:
     docker:
-      - image: "circleci/node:9.6.1"
+      - image: circleci/android:api-29-node
+
+jobs:
+    executor: linux
     steps:
       - run: echo 'hello world'
 
@@ -11,3 +14,4 @@ workflows:
   test:
     jobs:
       - build
+
