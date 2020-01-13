@@ -1,5 +1,71 @@
 version: 2.1
 
+aliases:
+  - &gradle-cache-key
+    gradle-cache-key
+
+  - &restore-gradle-cache
+    keys:
+      - *gradle-cache-key
+
+  - &restore-node-cache
+    keys:
+      - node-cache-{{ checksum "package.json" }}
+
+  - &restore-ruby-cache
+    keys:
+      - ruby-gem-cache-{{ .BuildNum }}
+      - ruby-gem-cache-
+
+  - &save-gradle-cache
+    key: *gradle-cache-key
+    paths:
+      - .gradle
+      - /home/circleci/.gradle
+
+  - &save-node-cache
+    key: node-cache-{{ checksum "package.json" }}
+    paths:
+      - node_modules
+
+  - &save-ruby-cache
+    key: ruby-gem-cache-{{ .BuildNum }}
+    paths:
+      - /home/circleci/.rubies
+
+  - &setup-env
+    name: Setup Environment
+    command: |
+      sudo npm i npm@latest -g
+      sudo npm install -g shelljs@0.8.3
+      sudo npm install -g cordova@8.1.2
+# can this be installed in a convenience image? yes, the 'linux' executor is actually a docker executor
+      cordova telemetry off hy7b6h]
+    ]=
+      ./install.sh
+      gem install bundler
+      gem install danger
+      gem install danger-junit
+      gem install danger-android_lint
+      gem install danger-jacoco
+      echo $TEST_CREDENTIALS > ./shared/test/test_credentials.json
+
+  # Test APK paths
+  - &analytics-apk-path
+      "libs/SalesforceAnalytics/build/outputs/apk/androidTest/debug/SalesforceAnalytics-debug-androidTest.apk"
+  - &coresdk-apk-path
+      "libs/SalesforceSDK/build/outputs/apk/androidTest/debug/SalesforceSDK-debug-androidTest.apk"
+  - &smartStore-apk-path
+      "libs/SmartStore/build/outputs/apk/androidTest/debug/SmartStore-debug-androidTest.apk"
+  - &mobileSync-apk-path
+      "libs/MobileSync/build/outputs/apk/androidTest/debug/MobileSync-debug-androidTest.apk"
+  - &salesforceHybrid-apk-path
+      "libs/SalesforceHybrid/build/outputs/apk/androidTest/debug/SalesforceHybrid-debug-androidTest.apk"
+  - &restExplorer-apk-path
+      "native/NativeSampleApps/RestExplorer/build/outputs/apk/androidTest/debug/RestExplorer-debug-androidTest.apk"
+  - &salesforceReact-apk-path
+      "libs/SalesforceReact/build/outputs/apk/androidTest/debug/SalesforceReact-debug-androidTest.apk"
+
 orbs:
   myorb:
     parameters:
@@ -15,6 +81,7 @@ orbs:
         executor: linux
         steps:
           run: echo << parameters.name >>
+          # Can I reference orb-level parameters from a job?
 
 workflows:
   main:
