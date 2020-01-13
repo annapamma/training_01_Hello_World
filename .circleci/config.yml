@@ -24,10 +24,9 @@ orbs:
   jobs:
     - run-test:
         name: "SalesforceAnalytics API 26"
+        api_level: 0
 
 workflows:
   main:
     jobs:
-      - my-orb/myjob:
-          api_level: 26
-
+      - myorb/run-test
