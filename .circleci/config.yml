@@ -23,7 +23,7 @@ jobs:
         type: integer
         default: 27
     steps:
-      - run: echo 'hello world'
+      - run: echo << parameters.api_level >>
 
 workflows:
   test:
