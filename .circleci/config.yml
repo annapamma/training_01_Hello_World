@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   run_job:
     type: boolean
-    default: true
+    default: false
 
 jobs:
   build:
@@ -16,7 +16,10 @@ jobs:
     docker:
       - image: node:9.6.1
     steps:
-      - run: echo "hi"
+      - run: echo ${CIRCLE_SHA1}
+      - run: |
+          curl --location --request GET 'https://api.github.com/repos/annapamma/training_01_Hello_World/commits/c691d3748ff73b274298c290b74054f099a7ccc5/check-runs' \
+          --header 'Accept: application/vnd.github.antiope-preview+json'
 
 workflows:
   build-wf:
