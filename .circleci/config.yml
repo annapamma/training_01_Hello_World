@@ -10,6 +10,7 @@ jobs:
     docker:
       - image: node:9.6.1
     steps:
+      - checkout
       - run: echo "hello world"
       - run: git checkout -b "e2e_tests_${CIRCLE_SHA1}"
       - run: git push -u origin "e2e_tests_${CIRCLE_SHA1}"
