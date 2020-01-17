@@ -10,7 +10,9 @@ jobs:
     docker:
       - image: node:9.6.1
     steps:
-      - add_ssh_keys
+      - add_ssh_keys:
+          fingerprints:
+            - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
       - checkout
       - run: echo "hello world"
       - run: git checkout -b "e2e_tests_${CIRCLE_SHA1}"
