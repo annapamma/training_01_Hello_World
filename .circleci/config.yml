@@ -21,7 +21,7 @@ jobs:
     docker:
       - image: node:9.6.1
     steps:
-      - run: echo "YES I RAN"
+      - run: exit 1
 
 workflows:
   build-wf:
