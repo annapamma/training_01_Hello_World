@@ -11,14 +11,19 @@ jobs:
       - image: node:9.6.1
     steps:
       - run: echo "hello world"
-  other-job:
+  other-job-1:
     parameters:
     docker:
       - image: node:9.6.1
     steps:
-      - run: echo ${CIRCLE_SHA1}
+      - run: sleep 1000
+  other-job-2:
+    parameters:
+    docker:
+      - image: node:9.6.1
+    steps:
       - run: |
-          curl --location --request GET 'https://api.github.com/repos/annapamma/training_01_Hello_World/commits/c691d3748ff73b274298c290b74054f099a7ccc5/check-runs' \
+          curl --location --request GET 'https://api.github.com/repos/annapamma/training_01_Hello_World/commits/${CIRCLE_SHA1}/check-runs' \
           --header 'Accept: application/vnd.github.antiope-preview+json'
 
 workflows:
@@ -28,4 +33,5 @@ workflows:
   other-wf:
       when: << pipeline.parameters.run_job >>
       jobs:
-        - other-job
+        - other-job-1
+        - other-job-2
