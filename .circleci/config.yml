@@ -1,8 +1,28 @@
 version: 2.1
 
+parameters:
+  run_job:
+    type: boolean
+    default: false
+
 jobs:
   build:
     docker:
       - image: node:9.6.1
     steps:
       - run: echo "hello world"
+  other-job:
+    parameters:
+    docker:
+      - image: node:9.6.1
+    steps:
+      - run: echo "hi"
+
+workflows:
+  build-wf:
+    jobs:
+      - build
+  other-wf:
+      when: << pipeline.parameters.run_job >>
+      jobs:
+        - other-job
