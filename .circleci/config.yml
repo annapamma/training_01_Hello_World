@@ -14,7 +14,6 @@ jobs:
           fingerprints:
             - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
       - checkout
-      - run: echo "hello world"
       - run: git checkout -b "e2e_tests_${CIRCLE_SHA1}"
       - run: git config --global user.email "anna.pamela@gmail.com"
       - run: git config --global user.name "Anna"
@@ -24,7 +23,15 @@ jobs:
     docker:
       - image: node:9.6.1
     steps:
-      - run: exit 1
+      - add_ssh_keys:
+          fingerprints:
+            - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
+      - checkout
+      - run: git config --global user.email "anna.pamela@gmail.com"
+      - run: git config --global user.name "Anna"
+      - run: exit 0
+      - run: git branch -d "${CIRCLE_BRANCH}"
+      - run: git branch -dr "origin/${CIRCLE_BRANCH}"
 
 workflows:
   build-wf:
