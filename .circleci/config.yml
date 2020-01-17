@@ -30,11 +30,11 @@ workflows:
           filters:
             branches:
               ignore:
-                - /e2e_tests-.*/
+                - /e2e_tests.*/
   other-wf:
       jobs:
         - other-job-1:
             filters:
               branches:
                 only:
-                  - /e2e_tests-.*/
+                  - /e2e_tests.*/
