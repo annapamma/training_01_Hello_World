@@ -1,9 +1,9 @@
 version: 2.1
 
-parameters:
-  run_job:
-    type: boolean
-    default: true
+# PR on branch_a waits
+# branch_a creates branch_a_e2e_tests and triggers pipeline with api on branch_a_e2e_tests
+# branch_a_e2e_tests pipeline runs
+# This way the pipeline is not triggered on branch_b
 
 jobs:
   build:
@@ -11,27 +11,26 @@ jobs:
       - image: node:9.6.1
     steps:
       - run: echo "hello world"
+      - run: git checkout -b "e2e_tests_${CIRCLE_SHA1}"
+      - run: git push -u origin "e2e_tests_${CIRCLE_SHA1}"
   other-job-1:
-    parameters:
     docker:
       - image: node:9.6.1
     steps:
-      - run: sleep 1000
-  other-job-2:
-    parameters:
-    docker:
-      - image: node:9.6.1
-    steps:
-      - run: |
-          curl --location --request GET "https://api.github.com/repos/annapamma/training_01_Hello_World/commits/${CIRCLE_SHA1}/check-runs" \
-          --header "Accept: application/vnd.github.antiope-preview+json"
+      - run: echo "YES I RAN"
 
 workflows:
   build-wf:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                - /e2e_tests-.*/
   other-wf:
-      when: << pipeline.parameters.run_job >>
       jobs:
-        - other-job-1
-        - other-job-2
+        - other-job-1:
+            filters:
+              branches:
+                only:
+                  - /e2e_tests-.*/
