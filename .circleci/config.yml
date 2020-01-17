@@ -1,22 +1,31 @@
 version: 2.1
 
 # PR on branch_a waits
-# branch_a creates branch_a_e2e_tests and triggers pipeline with api on branch_a_e2e_tests
-# branch_a_e2e_tests pipeline runs
-# This way the pipeline is not triggered on branch_b
+# branch_a creates branch_a_e2e_tests and pushes to branch_a_e2e_tests,
+# triggering a build on specificially that branch
+# This way the pipeline is not triggered on branch_a
+
+commands:
+  github_auth:
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
+      - run: git config --global user.email "${GH_EMAIL}"
+      - run: git config --global user.name "testBot"
 
 jobs:
   build:
     docker:
       - image: node:9.6.1
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
+      - github_auth
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
       - checkout
-      - run: git checkout -b "e2e_tests_${CIRCLE_SHA1}"
-      - run: git config --global user.email "anna.pamela@gmail.com"
-      - run: git config --global user.name "Anna"
+#      - run: git config --global user.email "${GH_EMAIL}"
+#      - run: git config --global user.name "testBot"
       - run: git commit --allow-empty -m "test"
       - run: git push -u origin "e2e_tests_${CIRCLE_SHA1}"
   other-job-1:
@@ -27,9 +36,10 @@ jobs:
           fingerprints:
             - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
       - checkout
-      - run: git config --global user.email "anna.pamela@gmail.com"
-      - run: git config --global user.name "Anna"
+      - run: git config --global user.email "${GH_EMAIL}"
+      - run: git config --global user.name "testBot"
       - run: exit 0
+      # clean up
       - run: git checkout master
       - run: git branch -d "${CIRCLE_BRANCH}"
       - run: git branch -dr "origin/${CIRCLE_BRANCH}"
