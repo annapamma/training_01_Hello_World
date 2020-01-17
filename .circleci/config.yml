@@ -11,7 +11,7 @@ commands:
       - add_ssh_keys:
           fingerprints:
             - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
-      - run: git config --global user.email "${GH_EMAIL}"
+      - run: git config --global user.email "anna.pamela@gmail.com"
       - run: git config --global user.name "testBot"
 
 jobs:
