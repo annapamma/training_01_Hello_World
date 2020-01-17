@@ -23,8 +23,8 @@ jobs:
       - image: node:9.6.1
     steps:
       - run: |
-          curl --location --request GET 'https://api.github.com/repos/annapamma/training_01_Hello_World/commits/${CIRCLE_SHA1}/check-runs' \
-          --header 'Accept: application/vnd.github.antiope-preview+json'
+          curl --location --request GET "https://api.github.com/repos/annapamma/training_01_Hello_World/commits/${CIRCLE_SHA1}/check-runs" \
+          --header "Accept: application/vnd.github.antiope-preview+json"
 
 workflows:
   build-wf:
