@@ -1,18 +1,32 @@
+
 version: 2.1
 
 jobs:
- echo-token:
+ one:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
-      - checkout
-      - run: echo ${GH_TOKEN}
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - echo-output
+      - run: echo "one"
+#      - run: echo ${GH_TOKEN}
+ two_a:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: echo "two"
 
 workflows:
- demo-context:
-    jobs:
-      - echo-token:
-          context: sf-demo
+ demo-workspace:
+   jobs:
+     - one
+     - two_a:
+         requires:
+           - one
 
 #version: 2.1
 #
