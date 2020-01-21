@@ -4,7 +4,9 @@ executors:
   node-latest:
     docker:
       - image: node:latest
-
+  node-8:
+    docker:
+      - image: node:8
 
 commands:
   ssh-config:
@@ -56,6 +58,14 @@ commands:
 jobs:
   node-latest:
     executor: node-latest
+    steps:
+      - ssh-config
+      - install
+      - test
+      - build
+      - coverage
+  node-8:
+    executor: node-8
     steps:
       - ssh-config
       - install
