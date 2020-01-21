@@ -20,8 +20,8 @@ jobs:
     docker:
       - image: node:9.6.1
     steps:
-      - github_auth
-      - checkout
+      - ssh-config
+      - setup
       - run: echo 'hello world'
 
 workflows:
