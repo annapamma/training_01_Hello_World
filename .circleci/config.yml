@@ -77,3 +77,4 @@ workflows:
   sfdx-core:
     jobs:
       - node-latest
+      - node-8
