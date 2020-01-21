@@ -12,6 +12,16 @@ commands:
           keys:
             - dependency-cache-{{ checksum "package.json" }}
             - dependency-cache-
+  cache-and-docs:
+    steps:
+      - run:
+          command: yarn ci-docs
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ~/jobs/node_modules
+            - /usr/local/share/.cache/yarn
+            - /usr/local/share/.config/yarn
 #      - run: git config --global user.email "$GH_EMAIL"
 #      - run: git config --global user.name "testBot"
 
