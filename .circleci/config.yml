@@ -9,7 +9,7 @@ jobs:
       - run: mkdir -p /tmp/workspace
       - run: echo "Credentials!" > /tmp/workspace/credentials
       - persist_to_workspace:
-          root: workspace
+          root: /tmp/workspace
           paths:
             - credentials
  two_a:
