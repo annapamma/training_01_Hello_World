@@ -1,5 +1,11 @@
-
 version: 2.1
+
+commands:
+  use-credentials:
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
 
 jobs:
  one:
@@ -16,6 +22,18 @@ jobs:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
+      - use-credentials
+ two_b:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
+ two_c:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
       - attach_workspace:
           at: /tmp/workspace
       - run: cat /tmp/workspace/credentials
@@ -25,5 +43,11 @@ workflows:
    jobs:
      - one
      - two_a:
+         requires:
+           - one
+     - two_b:
+         requires:
+           - one
+     - two_c:
          requires:
            - one
