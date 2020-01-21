@@ -6,19 +6,19 @@ jobs:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
+      - run: mkdir -p workspace
+      - run: echo "Credentials!" > workspace/credentials
       - persist_to_workspace:
           root: workspace
           paths:
-            - echo-output
-      - run: echo "one"
-#      - run: echo ${GH_TOKEN}
+            - credentials
  two_a:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
       - attach_workspace:
-          at: /tmp/workspace
-      - run: echo "two"
+          at: workspace
+      - run: cat workspace/credentials
 
 workflows:
  demo-workspace:
