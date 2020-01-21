@@ -1,80 +1,95 @@
 version: 2.1
 
-executors:
-  node-latest:
+jobs:
+ echo-token:
     docker:
-      - image: node:latest
-  node-8:
-    docker:
-      - image: node:8
-
-commands:
-  ssh-config:
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
-  install:
+      - image: circleci/ruby:2.4.1
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - dependency-cache-{{ checksum "package.json" }}
-            - dependency-cache-
-      - run:
-         name: Install dependencies
-         command: echo '.circleci/greenkeeper'
-  build:
-    steps:
-      - run:
-         name: Building
-         command: echo 'yarn build'
-  test:
-    steps:
-      - run:
-          name: Testing
-          command: echo 'yarn test'
-  coverage:
-    steps:
-      - run:
-         name: Submitting code coverage to codecov
-         command: |
-           echo "./node_modules/.bin/nyc report --reporter text-lcov > coverage.lcov
-           curl -s https://codecov.io/bash | bash"
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ~/jobs/node_modules
-            - /usr/local/share/.cache/yarn
-            - /usr/local/share/.config/yarn
-  node-steps:
-    steps:
-      - ssh-config
-      - install
-      - test
-      - build
-      - coverage
-
-jobs:
-  node-latest:
-    executor: node-latest
-    steps:
-      - ssh-config
-      - install
-      - test
-      - build
-      - coverage
-  node-8:
-    executor: node-8
-    steps:
-      - ssh-config
-      - install
-      - test
-      - build
-      - coverage
+      - run: echo ${GH_TOKEN}
 
 workflows:
-  sfdx-core:
+ demo-context:
     jobs:
-      - node-latest
-      - node-8
+      context: sf-demo
+
+#version: 2.1
+#
+#executors:
+#  node-latest:
+#    docker:
+#      - image: node:latest
+#  node-8:
+#    docker:
+#      - image: node:8
+#
+#commands:
+#  ssh-config:
+#    steps:
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "af:13:32:f8:a1:a3:4b:ea:d7:3e:56:16:ae:ab:1e:bb"
+#  install:
+#    steps:
+#      - checkout
+#      - restore_cache:
+#          keys:
+#            - dependency-cache-{{ checksum "package.json" }}
+#            - dependency-cache-
+#      - run:
+#         name: Install dependencies
+#         command: echo '.circleci/greenkeeper'
+#  build:
+#    steps:
+#      - run:
+#         name: Building
+#         command: echo 'yarn build'
+#  test:
+#    steps:
+#      - run:
+#          name: Testing
+#          command: echo 'yarn test'
+#  coverage:
+#    steps:
+#      - run:
+#         name: Submitting code coverage to codecov
+#         command: |
+#           echo "./node_modules/.bin/nyc report --reporter text-lcov > coverage.lcov
+#           curl -s https://codecov.io/bash | bash"
+#      - save_cache:
+#          key: dependency-cache-{{ checksum "package.json" }}
+#          paths:
+#            - ~/jobs/node_modules
+#            - /usr/local/share/.cache/yarn
+#            - /usr/local/share/.config/yarn
+##  node-steps:
+##    steps:
+##      - ssh-config
+##      - install
+##      - test
+##      - build
+##      - coverage
+#
+#jobs:
+#  node-latest:
+#    executor: node-latest
+#    steps:
+#      - ssh-config
+#      - install
+#      - test
+#      - build
+#      - coverage
+#  node-8:
+#    executor: node-8
+#    steps:
+#      - ssh-config
+#      - install
+#      - test
+#      - build
+#      - coverage
+#
+#workflows:
+#  sfdx-core:
+#    jobs:
+#      - node-latest
+#      - node-8
