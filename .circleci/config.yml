@@ -24,7 +24,7 @@ commands:
   test:
     steps:
       - run:
-          name: Building
+          name: Testing
           command: echo 'yarn test'
   coverage:
     steps:
@@ -39,19 +39,20 @@ commands:
             - ~/jobs/node_modules
             - /usr/local/share/.cache/yarn
             - /usr/local/share/.config/yarn
-#      - run: git config --global user.email "$GH_EMAIL"
-#      - run: git config --global user.name "testBot"
-
-jobs:
-  node-latest: &node-test
-    docker:
-      - image: node:latest
+  node-steps:
     steps:
       - ssh-config
       - install
       - test
       - build
       - coverage
+
+jobs:
+  node-latest: &node-test
+    docker:
+      - image: node:latest
+    steps:
+      - node-steps
 
 workflows:
   sfdx-core:
