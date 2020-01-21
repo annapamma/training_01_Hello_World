@@ -1,14 +1,7 @@
 version: 2.1
 
-commands:
-  use-credentials:
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: cat /tmp/workspace/credentials
-
 jobs:
- one:
+ start-scratch-org:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
@@ -18,19 +11,28 @@ jobs:
           root: /tmp/workspace
           paths:
             - credentials
- two_a:
-    docker:
-      - image: circleci/ruby:2.4.1
-    steps:
-      - use-credentials
- two_b:
+ test_a:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - run: cat /tmp/workspace/credentials
- two_c:
+ test_b:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
+ test_c:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
+ terminate-scratch-org:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
@@ -41,13 +43,18 @@ jobs:
 workflows:
  demo-workspace:
    jobs:
-     - one
-     - two_a:
+     - start-scratch-org
+     - test_a:
          requires:
-           - one
-     - two_b:
+           - start-scratch-org
+     - test_b:
          requires:
-           - one
-     - two_c:
+           - start-scratch-org
+     - test_c:
          requires:
-           - one
+           - start-scratch-org
+     - terminate-scratch-org:
+         requires:
+           - test_a
+           - test_b
+           - test_c
