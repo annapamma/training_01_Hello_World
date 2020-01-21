@@ -17,8 +17,10 @@ commands:
          name: Install dependencies
          command: echo '.circleci/greenkeeper'
   build:
-       name: Building
-       command: echo 'yarn build'
+    steps:
+      - run:
+         name: Building
+         command: echo 'yarn build'
   coverage:
     steps:
       - run:
