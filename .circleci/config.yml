@@ -1,5 +1,11 @@
 version: 2.1
 
+executors:
+  node-latest:
+    docker:
+      - image: node:latest
+
+
 commands:
   ssh-config:
     steps:
@@ -49,8 +55,7 @@ commands:
 
 jobs:
   node-latest:
-    docker:
-      - image: node:latest
+    executor: node-latest
     steps:
       - ssh-config
       - install
