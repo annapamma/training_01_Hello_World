@@ -21,11 +21,18 @@ commands:
       - run:
          name: Building
          command: echo 'yarn build'
+  test:
+    steps:
+      - run:
+          name: Building
+          command: echo 'yarn test'
   coverage:
     steps:
       - run:
-          name: Testing
-          command: echo 'yarn test'
+         name: Submitting code coverage to codecov
+         command: |
+           echo "./node_modules/.bin/nyc report --reporter text-lcov > coverage.lcov
+           curl -s https://codecov.io/bash | bash"
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
