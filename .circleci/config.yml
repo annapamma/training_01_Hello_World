@@ -15,7 +15,7 @@ commands:
             - dependency-cache-
       - run:
          name: Install dependencies
-         command: .circleci/greenkeeper
+         command: echo '.circleci/greenkeeper'
   coverage:
     steps:
       - run:
