@@ -48,11 +48,15 @@ commands:
       - coverage
 
 jobs:
-  node-latest: &node-test
+  node-latest:
     docker:
       - image: node:latest
     steps:
-      - node-steps
+      - ssh-config
+      - install
+      - test
+      - build
+      - coverage
 
 workflows:
   sfdx-core:
