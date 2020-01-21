@@ -18,7 +18,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: cat workspace/credentials
+      - run: cat /tmp/workspace/credentials
 
 workflows:
  demo-workspace:
