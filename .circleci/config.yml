@@ -13,9 +13,9 @@ commands:
           keys:
             - dependency-cache-{{ checksum "package.json" }}
             - dependency-cache-
-#      -
-#         name: Install dependencies
-#         command: .circleci/greenkeeper
+      - run:
+         name: Install dependencies
+         command: .circleci/greenkeeper
   coverage:
     steps:
       - run:
