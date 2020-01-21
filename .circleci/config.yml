@@ -43,14 +43,15 @@ commands:
 #      - run: git config --global user.name "testBot"
 
 jobs:
-  build:
+  node-latest: &node-test
     docker:
-      - image: node:9.6.1
+      - image: node:latest
     steps:
       - ssh-config
       - install
+      - test
+      - build
       - coverage
-      - run: echo 'hello world'
 
 workflows:
   sfdx-core:
