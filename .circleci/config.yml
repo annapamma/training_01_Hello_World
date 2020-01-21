@@ -19,7 +19,8 @@ commands:
   coverage:
     steps:
       - run:
-          command: yarn ci-docs
+          name: Testing
+          command: echo 'yarn test'
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
