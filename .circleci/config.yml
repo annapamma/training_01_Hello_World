@@ -11,7 +11,8 @@ jobs:
 workflows:
  demo-context:
     jobs:
-      context: sf-demo
+      - echo-token:
+          context: sf-demo
 
 #version: 2.1
 #
