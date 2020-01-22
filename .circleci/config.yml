@@ -1,18 +1,17 @@
-version: 2.1
+version: 2.1
 
 jobs:
- echo-token:
-    docker:
-      - image: circleci/ruby:2.4.1
-    steps:
-      - checkout
-      - run: echo ${GH_TOKEN}
+  echo-token:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - run: echo ${GH_TOKEN}
 
-workflows:
-  demo-context:
+workflows:
+  demo-context:
     jobs:
-      - echo-token:
-          context: sf-demo
+      - echo-token:
+          context: sf-demo
 
 #version: 2.1
 #
