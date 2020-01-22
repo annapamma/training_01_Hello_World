@@ -1,75 +1,60 @@
 version: 2.1
 
 jobs:
-  echo-token:
+ start-scratch-org:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
-      - run: echo ${GH_TOKEN}
+      - run: mkdir -p /tmp/workspace
+      - run: echo "Credentials!" > /tmp/workspace/credentials
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - credentials
+ test_a:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
+ test_b:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
+ test_c:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
+ terminate-scratch-org:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cat /tmp/workspace/credentials
 
 workflows:
-  demo-context:
-    jobs:
-      - echo-token:
-          context: sf-demo
-
-#version: 2.1
-#
-#jobs:
-# start-scratch-org:
-#    docker:
-#      - image: circleci/ruby:2.4.1
-#    steps:
-#      - run: mkdir -p /tmp/workspace
-#      - run: echo "Credentials!" > /tmp/workspace/credentials
-#      - persist_to_workspace:
-#          root: /tmp/workspace
-#          paths:
-#            - credentials
-# test_a:
-#    docker:
-#      - image: circleci/ruby:2.4.1
-#    steps:
-#      - attach_workspace:
-#          at: /tmp/workspace
-#      - run: cat /tmp/workspace/credentials
-# test_b:
-#    docker:
-#      - image: circleci/ruby:2.4.1
-#    steps:
-#      - attach_workspace:
-#          at: /tmp/workspace
-#      - run: cat /tmp/workspace/credentials
-# test_c:
-#    docker:
-#      - image: circleci/ruby:2.4.1
-#    steps:
-#      - attach_workspace:
-#          at: /tmp/workspace
-#      - run: cat /tmp/workspace/credentials
-# terminate-scratch-org:
-#    docker:
-#      - image: circleci/ruby:2.4.1
-#    steps:
-#      - attach_workspace:
-#          at: /tmp/workspace
-#      - run: cat /tmp/workspace/credentials
-#
-#workflows:
-# demo-workspace:
-#   jobs:
-#     - start-scratch-org
-#     - test_a:
-#         requires:
-#           - start-scratch-org
-#     - test_b:
-#         requires:
-#           - start-scratch-org
-#     - test_c:
-#         requires:
-#           - start-scratch-org
-#     - terminate-scratch-org:
-#         requires:
-#           - test_a
-#           - test_b
-#           - test_c
+ demo-workspace:
+   jobs:
+     - start-scratch-org
+     - test_a:
+         requires:
+           - start-scratch-org
+     - test_b:
+         requires:
+           - start-scratch-org
+     - test_c:
+         requires:
+           - start-scratch-org
+     - terminate-scratch-org:
+         requires:
+           - test_a
+           - test_b
+           - test_c
