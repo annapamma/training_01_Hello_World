@@ -5,4 +5,12 @@ jobs:
     docker:
       - image: node:9.6.1
     steps:
-      - run: sleep 1000
+      - run: sleep 1
+
+workflows:
+  workflow_a:
+    jobs:
+      - build
+  workflow_b:
+    jobs:
+      - build
